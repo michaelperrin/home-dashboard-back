@@ -1,0 +1,27 @@
+version: '2'
+services:
+  php:
+    build: ./docker/php/
+    environment:
+      TIMEZONE: Europe/Paris
+    volumes:
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini:ro
+      - ./dashboard-api:/var/www/dashboard-api
+    working_dir: /var/www/dashboard-api
+
+  webserver:
+    build: ./docker/nginx/
+    depends_on:
+      - php
+    volumes_from:
+      - php
+    volumes:
+      - ./docker/nginx/dashboard-api.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - 8080:80
+
+  composer:
+    image: composer:1.4
+    volumes_from:
+      - php
+    working_dir: /var/www/dashboard-api

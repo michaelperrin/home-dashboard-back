@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Radio;
 
+use Dashboard\Radio\CurrentTitle\Station\Fip;
 use Dashboard\Radio\CurrentTitle\Station\Nova;
 use Dashboard\Radio\CurrentTitle\Station\TsfJazz;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -13,6 +14,16 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CurrentTitleController
 {
+    /**
+     * @Route("/fip", defaults={"_format": "json"})
+     */
+    public function fipAction(Fip $currentTitleRetriever)
+    {
+        $trackInfo = $currentTitleRetriever->getCurrentTitle();
+
+        return new JsonResponse($trackInfo);
+    }
+
     /**
      * @Route("/nova", defaults={"_format": "json"})
      */

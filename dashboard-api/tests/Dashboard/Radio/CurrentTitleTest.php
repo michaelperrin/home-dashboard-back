@@ -3,6 +3,7 @@
 namespace Dashboard\Radio;
 
 use Dashboard\Radio\CurrentTitle\CurrentTitleRetrieverInterface;
+use Dashboard\Radio\CurrentTitle\Station\Fip;
 use Dashboard\Radio\CurrentTitle\Station\Nova;
 use Dashboard\Radio\CurrentTitle\Station\TsfJazz;
 use PHPUnit\Framework\TestCase;
@@ -14,6 +15,52 @@ class CurrentTitleTest extends TestCase
     public function setUp()
     {
         $this->prophet = new \Prophecy\Prophet();
+    }
+
+    public function testFip()
+    {
+        $artist = 'And Also The Trees';
+        $track = 'Candace';
+        $album = '(Listen for) The Rag and Bone Man';
+        $picture = 'http://www.example.com/image.png';
+
+        $fakeResponse = <<<EOT
+{
+    "steps": {
+        "key1": {},
+        "key2": {
+            "authors": "$artist",
+            "title": "$track",
+            "titreAlbum": "$album",
+            "visual": "$picture"
+        },
+        "key3": {}
+    },
+    "levels": [
+        {
+            "items": ["unused1"],
+            "position": 0
+        },
+        {
+            "items": ["key1", "key2", "key3"],
+            "position": 1
+        }
+    ]
+}
+EOT;
+
+        $currentTitleRetriever = new Fip($this->getDataFetcher($fakeResponse), ['current_title_url' => 'http://fake_station_url.com']);
+
+        $expectedResult = [
+            'artist' => $artist,
+            'track'  => $track,
+            'album'  => [
+                'name'    => $album,
+                'picture' => $picture,
+            ]
+        ];
+
+        $this->assertEquals($currentTitleRetriever->getCurrentTitle(), $expectedResult);
     }
 
     public function testNova()

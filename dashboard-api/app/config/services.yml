@@ -22,6 +22,21 @@ services:
         # but if a service is unused, it's removed anyway
         exclude: '../../src/AppBundle/{Entity,Repository}'
 
+    Dashboard\:
+        resource: '../../src/Dashboard/*'
+
+    Dashboard\Radio\CurrentTitle\Station\TsfJazz:
+        arguments:
+            $config: '%radio.tsf_jazz%'
+
+    Dashboard\Radio\CurrentTitle\Station\Nova:
+        arguments:
+            $config: '%radio.nova%'
+
+    Dashboard\Radio\CurrentTitle\Station\Fip:
+        arguments:
+            $config: '%radio.fip%'
+
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services
     AppBundle\Controller\:

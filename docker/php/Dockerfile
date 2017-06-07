@@ -13,3 +13,8 @@ RUN apt-get update && apt-get install -y \
 
 # Fix permissions
 RUN usermod -u 1000 www-data
+
+# PHPUnit
+RUN curl "https://phar.phpunit.de/phpunit.phar" -L -o "phpunit.phar"
+RUN chmod +x phpunit.phar
+RUN mv phpunit.phar /usr/local/bin/phpunit

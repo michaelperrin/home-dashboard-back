@@ -7,6 +7,12 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    radio.tsf_jazz:
+        current_title_url: 'http://www.tsfjazz.com/getSongInformations.php'
+    radio.nova:
+        current_title_url: 'http://www.novaplanet.com/radionova/ontheair'
+    radio.fip:
+        current_title_url: 'http://www.fipradio.fr/livemeta/7'
 
 framework:
     #esi: ~

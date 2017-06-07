@@ -2,7 +2,7 @@
 
 namespace Dashboard\Radio\CurrentTitle;
 
-interface CurrentTitleInterface
+interface CurrentTitleRetrieverInterface
 {
     public function getCurrentTitle();
 }

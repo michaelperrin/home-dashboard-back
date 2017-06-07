@@ -14,6 +14,16 @@ use Symfony\Component\HttpFoundation\Request;
 class CurrentTitleController
 {
     /**
+     * @Route("/nova", defaults={"_format": "json"})
+     */
+    public function novaAction(Nova $currentTitleRetriever)
+    {
+        $trackInfo = $currentTitleRetriever->getCurrentTitle();
+
+        return new JsonResponse($trackInfo);
+    }
+
+    /**
      * @Route("/tsf-jazz", defaults={"_format": "json"})
      */
     public function tsfJazzAction(TsfJazz $currentTitleRetriever)

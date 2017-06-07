@@ -9,6 +9,8 @@ parameters:
     locale: en
     radio.tsf_jazz:
         current_title_url: 'http://www.tsfjazz.com/getSongInformations.php'
+    radio.nova:
+        current_title_url: 'http://www.novaplanet.com/radionova/ontheair'
 
 framework:
     #esi: ~

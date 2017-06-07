@@ -4,8 +4,9 @@ namespace Dashboard\Radio\CurrentTitle\Station;
 
 use Dashboard\Radio\CurrentTitle\CurrentTitleRetrieverInterface;
 use Dashboard\Radio\CurrentTitle\HttpDataFetcher;
+use Symfony\Component\DomCrawler\Crawler;
 
-class TsfJazz implements CurrentTitleRetrieverInterface
+class Nova implements CurrentTitleRetrieverInterface
 {
     private $dataFetcher;
     private $config;
@@ -18,8 +19,14 @@ class TsfJazz implements CurrentTitleRetrieverInterface
 
     public function getCurrentTitle() : array
     {
-        $data = $this->dataFetcher->fetchData($this->config['current_title_url']);
-        list($artist, $track) = explode('|', $data);
+        $rawData = $this->dataFetcher->fetchData($this->config['current_title_url']);
+        $data = json_decode($rawData, true);
+
+        $markup = $data['track']['markup'];
+        $crawler = new Crawler($markup);
+
+        $artist = trim($crawler->filter('.ontheair-text > .artist')->eq(0)->text());
+        $track = trim($crawler->filter('.ontheair-text > .title')->eq(0)->text());
 
         return [
             'artist' => $artist,

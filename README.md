@@ -11,3 +11,9 @@ Start proejct:
 
 Project is available at http://127.0.0.1:8080
 
+
+## Tests
+
+Run tests:
+
+    make test

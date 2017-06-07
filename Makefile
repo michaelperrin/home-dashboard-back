@@ -25,3 +25,6 @@ deps: deps_php
 
 deps_php: ## Install PHP dependencies
 	$(COMPOSER) install
+
+test:
+	$(COMPOSE) exec php phpunit

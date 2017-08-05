@@ -21,8 +21,8 @@ class Fip implements CurrentTitleRetrieverInterface
         $rawData = $this->dataFetcher->fetchData($this->config['current_title_url']);
         $data = json_decode($rawData, true);
 
-        $position = $data['levels'][1]['position'];
-        $itemId = $data['levels'][1]['items'][$position];
+        $position = $data['levels'][0]['position'];
+        $itemId = $data['levels'][0]['items'][$position];
 
         $trackInfo = $data['steps'][$itemId];
 

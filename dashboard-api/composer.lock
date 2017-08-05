@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2256d57091ccd430af28d434fe8befea",
+    "content-hash": "b1dd364bf0191c6d2ce0a601fd8c1f16",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1036,6 +1036,66 @@
                 "sql"
             ],
             "time": "2014-01-12T16:20:24+00:00"
+        },
+        {
+            "name": "michaelperrin/dashboard-extra-providers",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:michaelperrin/dashboard-extra-providers.git",
+                "reference": "1e28963f6255c26544eeca80e0dd938ce7bf27e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michaelperrin/dashboard-extra-providers/zipball/1e28963f6255c26544eeca80e0dd938ce7bf27e9",
+                "reference": "1e28963f6255c26544eeca80e0dd938ce7bf27e9",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dashboard\\": "src/Dashboard/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Michaël Perrin",
+                    "email": "contact@michaelperrin.fr"
+                }
+            ],
+            "description": "Extra providers for dashboard",
+            "time": "2017-08-03 16:24:21"
+        },
+        {
+            "name": "michaelperrin/dashboard-extra-providers-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:michaelperrin/DashboardExtraProvidersBundle.git",
+                "reference": "84eeb550f6407e6739ece4465ea4d88bc9b81c90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michaelperrin/DashboardExtraProvidersBundle/zipball/84eeb550f6407e6739ece4465ea4d88bc9b81c90",
+                "reference": "84eeb550f6407e6739ece4465ea4d88bc9b81c90",
+                "shasum": ""
+            },
+            "require": {
+                "michaelperrin/dashboard-extra-providers": "@dev"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Dashboard\\": ""
+                }
+            },
+            "authors": [
+                {
+                    "name": "Michaël Perrin",
+                    "email": "contact@michaelperrin.fr"
+                }
+            ],
+            "time": "2017-08-03 16:30:03"
         },
         {
             "name": "monolog/monolog",
@@ -2904,9 +2964,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
-    "prefer-stable": false,
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "michaelperrin/dashboard-extra-providers-bundle": 20
+    },
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.5.9"

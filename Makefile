@@ -27,4 +27,7 @@ deps_php: ## Install PHP dependencies
 	$(COMPOSER) install
 
 test:
-	$(COMPOSE) exec php phpunit
+	$(COMPOSE) exec -T php phpunit
+
+db_schema_update:
+	$(CONSOLE) doctrine:schema:update --force

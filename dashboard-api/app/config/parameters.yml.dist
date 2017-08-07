@@ -4,3 +4,4 @@
 parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+    database_path: '%kernel.project_dir%/var/data/data.sqlite'

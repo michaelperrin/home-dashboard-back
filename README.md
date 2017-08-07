@@ -12,6 +12,17 @@ Start proejct:
 Project is available at http://127.0.0.1:8080
 
 
+## Useful commands
+
+Initialize database:
+
+    make db_schema_update
+
+Import cities:
+
+    make dashboard_import_cities
+
+
 ## Tests
 
 Run tests:

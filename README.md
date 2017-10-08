@@ -17,3 +17,9 @@ Project is available at http://127.0.0.1:8080
 Run tests:
 
     make test
+
+
+## TODO
+
+- [ ] Accurate NelmioCorsBundle configuration
+- [ ] Auto API documentation

@@ -41,6 +41,10 @@ services:
         arguments:
             $apiKey: '%velib_api_key%'
 
+    Dashboard\City\France\Paris\PublicTransport\IdfMobilites\IdfMobilitesProvider:
+        arguments:
+            $apiKey: '%idf_mobilites_api_key%'
+
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services
     AppBundle\Controller\:

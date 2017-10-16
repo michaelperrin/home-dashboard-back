@@ -11,6 +11,7 @@ class IdfMobilitesProvider
 {
     const BASE_API_URL = 'https://api-lab-trone-stif.opendata.stif.info';
     const SCHEDULE_APPROACHING = 'A l\'approche';
+    const SCHEDULE_ARRIVED = 'A quai';
 
     private $apiKey;
     private $client;
@@ -41,14 +42,16 @@ class IdfMobilitesProvider
         $departures = array_map(function ($departure) {
             if (isset($departure['time'])) {
                 return (int) $departure['time'];
-            } elseif (isset($departure['schedule']) && $departure['schedule'] === self::SCHEDULE_APPROACHING) {
-                return 0;
+            } elseif (isset($departure['schedule'])) {
+                if (in_array($departure['schedule'], [self::SCHEDULE_APPROACHING, self::SCHEDULE_ARRIVED])) {
+                    return 0;
+                }
             }
 
             return null;
         }, $departuresData);
 
-        return $departures;
+        return array_values($departures);
     }
 
     private function nextDeparturesQuery(string $lineId, string $stopId, int $direction) : array

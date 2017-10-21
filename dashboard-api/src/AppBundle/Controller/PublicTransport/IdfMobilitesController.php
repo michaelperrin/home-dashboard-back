@@ -13,15 +13,28 @@ use Symfony\Component\HttpFoundation\Request;
 class IdfMobilitesController
 {
     /**
-     * @Route("/next-departures")
+     * @Route("/station/next-departures")
      */
-    public function nextDeparturesAction(Request $request, IdfMobilitesProvider $dataProvider)
+    public function stationNextDeparturesAction(Request $request, IdfMobilitesProvider $dataProvider)
+    {
+        $lineId = $request->query->get('line_id');
+        $stopId = $request->query->get('stop_id');
+
+        $nextDepartures = $dataProvider->getStationNextDepartures($lineId, $stopId);
+
+        return new JsonResponse(['next_departures' => $nextDepartures]);
+    }
+
+    /**
+     * @Route("/direction/next-departures")
+     */
+    public function directionNextDeparturesByDirectionAction(Request $request, IdfMobilitesProvider $dataProvider)
     {
         $lineId = $request->query->get('line_id');
         $stopId = $request->query->get('stop_id');
         $direction = $request->query->getInt('direction');
 
-        $nextDepartures = $dataProvider->getNextDepartures($lineId, $stopId, $direction);
+        $nextDepartures = $dataProvider->getDirectionNextDepartures($lineId, $stopId, $direction);
 
         return new JsonResponse(['next_departures' => $nextDepartures]);
     }

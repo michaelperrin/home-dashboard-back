@@ -29,9 +29,9 @@ class IdfMobilitesProvider
      * @param  int    $direction
      * @return array
      */
-    public function getNextDepartures(string $lineId, string $stopId, int $direction) : array
+    public function getDirectionNextDepartures(string $lineId, string $stopId, int $direction) : array
     {
-        $data = $this->nextDeparturesQuery($lineId, $stopId, $direction);
+        $data = $this->nextDeparturesQuery($lineId, $stopId);
 
         // Filter on direction
         $departuresData = array_filter($data, function ($departure) use ($direction) {
@@ -39,22 +39,55 @@ class IdfMobilitesProvider
         });
 
         // Only keep time in response
-        $departures = array_map(function ($departure) {
-            if (isset($departure['time'])) {
-                return (int) $departure['time'];
-            } elseif (isset($departure['schedule'])) {
-                if (in_array($departure['schedule'], [self::SCHEDULE_APPROACHING, self::SCHEDULE_ARRIVED])) {
-                    return 0;
-                }
-            }
-
-            return null;
-        }, $departuresData);
+        $departures = array_map([$this, 'getDepartureTime'], $departuresData);
 
         return array_values($departures);
     }
 
-    private function nextDeparturesQuery(string $lineId, string $stopId, int $direction) : array
+    public function getStationNextDepartures(string $lineId, string $stopId) : array
+    {
+        $departuresByDirection = [];
+        $departures = $this->nextDeparturesQuery($lineId, $stopId);
+        $directions = [];
+
+        foreach ($departures as $departure) {
+            if (!isset($departure['lineDirection'])) {
+                // TODO : log
+                continue;
+            }
+
+            $direction = $departure['lineDirection'];
+
+            if (!isset($departuresByDirection[$direction])) {
+                $departuresByDirection[$direction] = [
+                    'direction'  => $direction,
+                    'times'      => [],
+                ];
+            }
+
+            $departuresByDirection[$direction]['times'][] = $this->getDepartureTime($departure);
+        }
+
+        return array_values($departuresByDirection);
+    }
+
+    private function getDepartureTime(array $departure) : ?int
+    {
+        if (isset($departure['time'])) {
+            return (int) $departure['time'];
+        } elseif (isset($departure['schedule'])) {
+            if (in_array($departure['schedule'], [self::SCHEDULE_APPROACHING, self::SCHEDULE_ARRIVED])) {
+                return 0;
+            }
+        }
+
+        dump($departure);
+        die;
+
+        return null;
+    }
+
+    private function nextDeparturesQuery(string $lineId, string $stopId) : array
     {
         $response = $this->getApiClient()->request('GET', '/service/tr-vianavigo/departures', [
             'query' => [

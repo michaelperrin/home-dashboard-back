@@ -81,9 +81,6 @@ class IdfMobilitesProvider
             }
         }
 
-        dump($departure);
-        die;
-
         return null;
     }
 

@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 /**
  * Converts French zip code to INSEE code
  */
-class ZipCodeToInsee
+class ZipCodeInseeConverter
 {
     private $om;
 
@@ -24,6 +24,8 @@ class ZipCodeToInsee
             ->getRepository(City::class)
             ->findOneBy(['zipCode' => $zipCode])
         ;
+
+        // TODO : if not found
 
         return $city->getInseeCode();
     }

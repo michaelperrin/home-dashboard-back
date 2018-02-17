@@ -17,7 +17,7 @@ class ZipCodeInseeConverter
         $this->om = $om;
     }
 
-    public function convert($zipCode) : string
+    public function convert($zipCode): string
     {
         $city = $this
             ->om

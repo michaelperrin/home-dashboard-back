@@ -11,7 +11,7 @@ abstract class AbstractStation
     /**
      * Tells whether station is open or not
      */
-    public function isOpen() : bool
+    public function isOpen(): bool
     {
         return $this->open;
     }
@@ -19,7 +19,7 @@ abstract class AbstractStation
     /**
      * Sets whether station is open or not
      */
-    public function setOpen(bool $open) : AbstractStation
+    public function setOpen(bool $open): AbstractStation
     {
         $this->open = $open;
 
@@ -29,7 +29,7 @@ abstract class AbstractStation
     /**
      * Returns number of available bikes at the station
      */
-    public function getAvailableBikes() : int
+    public function getAvailableBikes(): int
     {
         return $this->availableBikes;
     }
@@ -37,7 +37,7 @@ abstract class AbstractStation
     /**
      * Sets number of available bikes at the station
      */
-    public function setAvailableBikes(int $availableBikes) : AbstractStation
+    public function setAvailableBikes(int $availableBikes): AbstractStation
     {
         $this->availableBikes = $availableBikes;
 
@@ -47,7 +47,7 @@ abstract class AbstractStation
     /**
      * Returns number of available bike stands at the station
      */
-    public function getAvailableStands() : int
+    public function getAvailableStands(): int
     {
         return $this->availableStands;
     }
@@ -55,7 +55,7 @@ abstract class AbstractStation
     /**
      * Sets number of available bike stands at the station
      */
-    public function setAvailableStands(int $availableStands) : AbstractStation
+    public function setAvailableStands(int $availableStands): AbstractStation
     {
         $this->availableStands = $availableStands;
 

@@ -29,7 +29,7 @@ class IdfMobilitesProvider
      * @param  int    $direction
      * @return array
      */
-    public function getDirectionNextDepartures(string $lineId, string $stopId, int $direction) : array
+    public function getDirectionNextDepartures(string $lineId, string $stopId, int $direction): array
     {
         $data = $this->nextDeparturesQuery($lineId, $stopId);
 
@@ -44,7 +44,7 @@ class IdfMobilitesProvider
         return array_values($departures);
     }
 
-    public function getStationNextDepartures(string $lineId, string $stopId) : array
+    public function getStationNextDepartures(string $lineId, string $stopId): array
     {
         $departuresByDirection = [];
         $departures = $this->nextDeparturesQuery($lineId, $stopId);
@@ -71,7 +71,7 @@ class IdfMobilitesProvider
         return array_values($departuresByDirection);
     }
 
-    private function getDepartureTime(array $departure) : ?int
+    private function getDepartureTime(array $departure): ?int
     {
         if (isset($departure['time'])) {
             return (int) $departure['time'];
@@ -84,7 +84,7 @@ class IdfMobilitesProvider
         return null;
     }
 
-    private function nextDeparturesQuery(string $lineId, string $stopId) : array
+    private function nextDeparturesQuery(string $lineId, string $stopId): array
     {
         $response = $this->getApiClient()->request('GET', '/service/tr-vianavigo/departures', [
             'query' => [
@@ -97,7 +97,7 @@ class IdfMobilitesProvider
         return json_decode($response->getBody(), true);
     }
 
-    private function getApiClient() : Client
+    private function getApiClient(): Client
     {
         if (!isset($this->client)) {
             $this->client = new Client([

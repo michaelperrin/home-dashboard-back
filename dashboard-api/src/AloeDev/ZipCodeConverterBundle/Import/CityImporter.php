@@ -23,7 +23,7 @@ class CityImporter
      * @param  string $filePath File path to the CSV file to import
      * @return int              Number of imported cities
      */
-    public function importFile(string $filePath) : int
+    public function importFile(string $filePath): int
     {
         $this->resetCities();
 

@@ -17,7 +17,7 @@ class Nova implements CurrentTitleRetrieverInterface
         $this->config = $config;
     }
 
-    public function getCurrentTitle() : array
+    public function getCurrentTitle(): array
     {
         $rawData = $this->dataFetcher->fetchData($this->config['current_title_url']);
         $data = json_decode($rawData, true);

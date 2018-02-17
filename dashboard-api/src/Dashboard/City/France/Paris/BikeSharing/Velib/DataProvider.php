@@ -27,11 +27,11 @@ class DataProvider implements BikeSharingProviderInterface
         $station
             ->setOpen($stationData['status'] === Station::STATUS_OPEN)
             ->setAvailableBikes($stationData['available_bikes'])
-            ->setAvailableStands($stationData['available_bike_stands'])
+            ->setAvailableStands($stationData['bike_stands'])
         ;
     }
 
-    private function getStationInfo(AbstractStation $station) : array
+    private function getStationInfo(AbstractStation $station): array
     {
         $response = $this->getApiClient()->request('GET', 'stations/'.$station->getId(), [
             'query' => [
@@ -43,7 +43,7 @@ class DataProvider implements BikeSharingProviderInterface
         return json_decode($response->getBody(), true);
     }
 
-    private function getApiClient() : Client
+    private function getApiClient(): Client
     {
         if (!isset($this->client)) {
             $this->client = new Client([

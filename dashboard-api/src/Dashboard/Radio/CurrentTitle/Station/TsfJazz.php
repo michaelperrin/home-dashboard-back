@@ -16,7 +16,7 @@ class TsfJazz implements CurrentTitleRetrieverInterface
         $this->config = $config;
     }
 
-    public function getCurrentTitle() : array
+    public function getCurrentTitle(): array
     {
         $data = $this->dataFetcher->fetchData($this->config['current_title_url']);
         list($artist, $track) = explode('|', $data);

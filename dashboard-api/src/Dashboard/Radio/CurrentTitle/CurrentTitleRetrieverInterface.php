@@ -4,5 +4,5 @@ namespace Dashboard\Radio\CurrentTitle;
 
 interface CurrentTitleRetrieverInterface
 {
-    public function getCurrentTitle() : array;
+    public function getCurrentTitle(): array;
 }

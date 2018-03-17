@@ -38,10 +38,6 @@ class CurrentTitleTest extends TestCase
     },
     "levels": [
         {
-            "items": ["unused1"],
-            "position": 0
-        },
-        {
             "items": ["key1", "key2", "key3"],
             "position": 1
         }

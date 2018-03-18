@@ -5,7 +5,7 @@ Run project:
 
     make install
 
-Start proejct:
+Start project:
 
 	make start
 

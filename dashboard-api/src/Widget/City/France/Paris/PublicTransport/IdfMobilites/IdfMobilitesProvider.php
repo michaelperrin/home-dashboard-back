@@ -10,6 +10,7 @@ use GuzzleHttp\Client;
 class IdfMobilitesProvider
 {
     const BASE_API_URL = 'https://api-lab-trone-stif.opendata.stif.info';
+    const DEFAULT_USER_AGENT = 'GuzzleHttp/6.3.2 curl/7.38.0';
     const SCHEDULE_APPROACHING = 'A l\'approche';
     const SCHEDULE_ARRIVED = 'A quai';
 
@@ -102,6 +103,11 @@ class IdfMobilitesProvider
         if (!isset($this->client)) {
             $this->client = new Client([
                 'base_uri' => self::BASE_API_URL,
+                'headers' => [
+                    // Use a fake user agent because Idf Mobilités API rejects all user
+                    // agents containing the word "PHP" 😵
+                    'User-Agent' => self::DEFAULT_USER_AGENT,
+                ],
             ]);
         }
 

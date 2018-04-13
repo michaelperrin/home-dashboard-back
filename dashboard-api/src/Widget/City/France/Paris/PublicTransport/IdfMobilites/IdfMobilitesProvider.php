@@ -12,7 +12,7 @@ class IdfMobilitesProvider
     const BASE_API_URL = 'https://api-lab-trone-stif.opendata.stif.info';
     const DEFAULT_USER_AGENT = 'GuzzleHttp/6.3.2 curl/7.38.0';
     const SCHEDULE_APPROACHING = 'A l\'approche';
-    const SCHEDULE_ARRIVED = 'A quai';
+    const SCHEDULE_ARRIVED = ['A quai', 'A l\'arrêt'];
 
     private $apiKey;
     private $client;
@@ -66,7 +66,9 @@ class IdfMobilitesProvider
                 ];
             }
 
-            $departuresByDirection[$direction]['times'][] = $this->getDepartureTime($departure);
+            if (null !== ($departureTime = $this->getDepartureTime($departure))) {
+                $departuresByDirection[$direction]['times'][] = $departureTime;
+            }
         }
 
         return array_values($departuresByDirection);
@@ -77,7 +79,7 @@ class IdfMobilitesProvider
         if (isset($departure['time'])) {
             return (int) $departure['time'];
         } elseif (isset($departure['schedule'])) {
-            if (in_array($departure['schedule'], [self::SCHEDULE_APPROACHING, self::SCHEDULE_ARRIVED])) {
+            if (in_array($departure['schedule'], [self::SCHEDULE_APPROACHING] + self::SCHEDULE_ARRIVED)) {
                 return 0;
             }
         }

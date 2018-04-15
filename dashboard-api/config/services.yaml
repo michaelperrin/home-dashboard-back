@@ -12,6 +12,7 @@ parameters:
         current_title_url: 'http://www.novaplanet.com/radionova/ontheair'
     radio.tsf_jazz:
         current_title_url: 'http://www.tsfjazz.com/getSongInformations.php'
+    darksky_api_key: '%env(DASHBOARD_DARKSKY_API_KEY)%'
 
 services:
     # default configuration for services in *this* file
@@ -53,6 +54,10 @@ services:
     Dashboard\Widget\Radio\CurrentTitle\Station\TsfJazz:
         arguments:
             $config: '%radio.tsf_jazz%'
+
+    Dashboard\Widget\Weather\Provider\DarkSkyProvider:
+        arguments:
+            $apiKey: '%darksky_api_key%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

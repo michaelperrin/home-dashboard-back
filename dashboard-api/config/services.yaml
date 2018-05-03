@@ -13,6 +13,7 @@ parameters:
     radio.tsf_jazz:
         current_title_url: 'http://www.tsfjazz.com/getSongInformations.php'
     darksky_api_key: '%env(DASHBOARD_DARKSKY_API_KEY)%'
+    airparif_api_key: '%env(DASHBOARD_AIRPARIF_API_KEY)%'
 
 services:
     # default configuration for services in *this* file
@@ -34,6 +35,10 @@ services:
     Dashboard\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    Dashboard\Widget\AirQuality\Provider\AirParifProvider:
+        arguments:
+            $apiKey: '%airparif_api_key%'
 
     Dashboard\Widget\City\France\Paris\BikeSharing\Velib\DataProvider:
         arguments:
